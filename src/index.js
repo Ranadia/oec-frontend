@@ -11,7 +11,7 @@ class Index extends React.Component {
         this.state = {
             name: "",
             info: "",
-            result: "test"
+            result: ""
         }
     }
 
@@ -36,12 +36,12 @@ class Index extends React.Component {
     }
 
     async PostCalculation(){
-        console.log("PostCalculation....")
-        
         var a = document.getElementById('a').value;
         var b = document.getElementById('b').value;
         var typeOfCalc = document.getElementById('typeOfCalc').value;
 
+
+        // Error handling for wrong type of input necessary aswell!
         if(a === "" || b === "" || typeOfCalc === ""){
             this.setState({
                 result: "Values not set. Please set values."
@@ -52,8 +52,8 @@ class Index extends React.Component {
         let options = {
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': '*',
+                'Access-Control-Allow-Origin': 'http://localhost:3000',
+                'Access-Control-Allow-Methods': 'POST',
                 'Access-Control-Allow-Headers': '*'
             }
         }
@@ -67,9 +67,9 @@ class Index extends React.Component {
         console.log(calc);
         console.log(options)
 
-        await axios.post("http://localhost:8080/api/v1/postCalculation", calc, options)
+        await axios.post("http://localhost:8080/api/v1/postCalculation", calc)
             .then(res => {
-                console.log(res)
+                console.log(res.data)
             });
 
     }
